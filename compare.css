@@ -1,0 +1,456 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&family=Inter:wght@300;400;500;600&display=swap');
+
+:root {
+  --navy: #0d1b2e;
+  --navy-mid: #111f35;
+  --navy-card: rgba(255,255,255,0.97);
+  --blue-cta: #3b7df5;
+  --blue-cta-hover: #2563eb;
+  --white: #ffffff;
+  --text-muted: rgba(255,255,255,0.65);
+  --label-color: #6b7280;
+  --divider-dark: rgba(255,255,255,0.12);
+  --divider-light: #e5e7eb;
+  --card-shadow: 0 20px 80px rgba(0,0,0,0.35);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  background-color: var(--navy);
+  color: var(--white);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── Hero Background (mirrors homepage) ── */
+.hero-bg {
+  position: fixed;
+  inset: 0;
+  background:
+    linear-gradient(180deg,
+      rgba(8, 18, 34, 0.72) 0%,
+      rgba(10, 22, 42, 0.82) 60%,
+      rgba(8, 16, 30, 0.92) 100%),
+    url('images/bg-travel.jpg') center/cover no-repeat;
+  z-index: 0;
+}
+
+/* Blue tint overlay — matches homepage city photo feel */
+.hero-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 60% 0%, rgba(30, 60, 120, 0.35) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* ── Navbar ── */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 52px;
+}
+
+.nav-logo {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: var(--white);
+  text-decoration: none;
+  letter-spacing: -0.01em;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 0.92rem;
+  font-weight: 400;
+  color: var(--white);
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  opacity: 0.7;
+}
+
+.nav-dots {
+  font-size: 1.2rem;
+  color: var(--white);
+  cursor: pointer;
+  letter-spacing: 2px;
+}
+
+/* ── Page Shell ── */
+.page {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 140px 40px 80px;
+}
+
+/* ── Hero Text ── */
+.hero-text {
+  text-align: center;
+  margin-bottom: 48px;
+  animation: fadeUp 0.7s cubic-bezier(0.22,1,0.36,1) both;
+}
+
+.hero-text h1 {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: clamp(2.4rem, 5vw, 3.8rem);
+  line-height: 1.1;
+  color: var(--white);
+  letter-spacing: -0.01em;
+  margin-bottom: 16px;
+}
+
+.hero-text p {
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Compare Card ── */
+.compare-card {
+  width: 100%;
+  max-width: 1080px;
+  background: var(--navy-card);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+  animation: fadeUp 0.75s 0.1s cubic-bezier(0.22,1,0.36,1) both;
+}
+
+/* ── Selector Bar (inside card, matches search bar style) ── */
+.selector-bar {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 1px solid var(--divider-light);
+}
+
+.select-group {
+  padding: 22px 32px;
+  position: relative;
+}
+
+.select-group:first-child {
+  border-right: 1px solid var(--divider-light);
+}
+
+.select-group label {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--label-color);
+  margin-bottom: 6px;
+}
+
+.select-box {
+  width: 100%;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 400;
+  color: #1a1a2e;
+  background: transparent;
+  border: none;
+  appearance: none;
+  cursor: pointer;
+  outline: none;
+  padding-right: 28px;
+}
+
+.select-group::after {
+  content: '▾';
+  position: absolute;
+  right: 32px;
+  bottom: 24px;
+  font-size: 0.85rem;
+  color: var(--label-color);
+  pointer-events: none;
+}
+
+/* ── Search / Compare Button ── */
+.compare-btn-wrap {
+  display: flex;
+  justify-content: center;
+  padding: 0 32px 28px;
+  margin-top: -14px;
+  position: relative;
+  z-index: 2;
+}
+
+/* ── Image Row ── */
+.compare-images {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 1px solid var(--divider-light);
+}
+
+.image-card {
+  position: relative;
+  height: 240px;
+  overflow: hidden;
+}
+
+.image-card + .image-card {
+  border-left: 1px solid var(--divider-light);
+}
+
+.image-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.9s cubic-bezier(0.25,0.46,0.45,0.94),
+              filter 0.5s ease;
+  filter: brightness(0.88) saturate(0.9);
+}
+
+.image-card:hover img {
+  transform: scale(1.06);
+  filter: brightness(1) saturate(1);
+}
+
+.image-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(8,16,35,0.78) 0%, rgba(8,16,35,0.15) 55%, transparent 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 24px 28px;
+}
+
+.image-title {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 600;
+  font-size: 1.7rem;
+  color: #ffffff;
+  line-height: 1;
+}
+
+.image-tag {
+  font-size: 0.68rem;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+  margin-top: 7px;
+}
+
+/* ── Comparison Table ── */
+.compare-table {
+  display: grid;
+  grid-template-columns: 180px 1fr 1fr;
+}
+
+.compare-cell {
+  padding: 17px 24px;
+  border-bottom: 1px solid var(--divider-light);
+  font-size: 0.875rem;
+  color: #1a1a2e;
+  display: flex;
+  align-items: center;
+}
+
+.compare-cell.label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--label-color);
+  background: #f9fafb;
+  border-right: 1px solid var(--divider-light);
+}
+
+.compare-cell.value {
+  justify-content: center;
+  text-align: center;
+  font-weight: 400;
+  color: #111827;
+}
+
+.compare-cell.value + .compare-cell.value {
+  border-left: 1px solid var(--divider-light);
+}
+
+.compare-cell:hover {
+  background: #f0f6ff;
+}
+
+.compare-cell.label:hover {
+  background: #f9fafb;
+}
+
+/* Last row: no bottom border */
+.compare-table .compare-cell:nth-last-child(-n+3) {
+  border-bottom: none;
+}
+
+/* ── Blue Search-style Button ── */
+.btn-search {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 48px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #ffffff;
+  background: var(--blue-cta);
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  transition: background 0.25s, transform 0.2s, box-shadow 0.25s;
+  box-shadow: 0 4px 24px rgba(59, 125, 245, 0.45);
+  text-decoration: none;
+}
+
+.btn-search:hover {
+  background: var(--blue-cta-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 32px rgba(59, 125, 245, 0.5);
+}
+
+/* ── Back Link ── */
+.back-btn {
+  position: fixed;
+  top: 28px;
+  left: 52px;
+  z-index: 200;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: rgba(255,255,255,0.75);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.2s;
+  letter-spacing: 0.01em;
+}
+
+.back-btn svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.back-btn:hover {
+  color: #ffffff;
+}
+
+/* ── Responsive ── */
+@media (max-width: 820px) {
+  nav { padding: 18px 24px; }
+
+  .page { padding: 110px 16px 60px; }
+
+  .selector-bar {
+    grid-template-columns: 1fr;
+  }
+
+  .select-group:first-child {
+    border-right: none;
+    border-bottom: 1px solid var(--divider-light);
+  }
+
+  .compare-images {
+    grid-template-columns: 1fr;
+  }
+
+  .image-card + .image-card {
+    border-left: none;
+    border-top: 1px solid var(--divider-light);
+  }
+
+  .compare-table {
+    grid-template-columns: 1fr;
+  }
+
+  .compare-cell.label {
+    border-right: none;
+    border-bottom: none;
+    padding-bottom: 2px;
+    background: #f3f4f6;
+    padding-top: 16px;
+  }
+
+  .compare-cell.value {
+    justify-content: flex-start;
+    text-align: left;
+    padding-top: 4px;
+  }
+
+  .compare-cell.value + .compare-cell.value {
+    border-left: none;
+    border-top: 1px solid var(--divider-light);
+    padding-bottom: 16px;
+  }
+
+  .compare-table .compare-cell:nth-last-child(-n+3) {
+    border-bottom: revert;
+  }
+
+  .nav-links { display: none; }
+}
+.back-btn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 999;
+  padding: 10px 18px;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 999px;
+  backdrop-filter: blur(6px);
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.back-btn:hover {
+  background: rgba(0, 0, 0, 0.8);
+  transform: translateX(-3px);
+}

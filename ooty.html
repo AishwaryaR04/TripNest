@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ooty | TripNest</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f4f7f4;
+      color: #222;
+    }
+
+    /* ── BACK BUTTON ── */
+    .back-btn {
+      position: fixed;
+      top: 22px; left: 28px;
+      z-index: 999;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: #fff;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 20px;
+      background: rgba(0,0,0,0.45);
+      border-radius: 999px;
+      backdrop-filter: blur(8px);
+      transition: background 0.25s, transform 0.2s;
+    }
+    .back-btn:hover { background: rgba(0,0,0,0.65); transform: translateX(-3px); }
+
+    /* ── HERO ── */
+    .hero {
+      height: 88vh;
+      background:
+        linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.55)),
+        url("images/ooty-hero.jpg") center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .hero-content h1 {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      color: #fff;
+      font-weight: 700;
+      margin-bottom: 16px;
+      letter-spacing: -0.01em;
+    }
+    .hero-content p {
+      font-size: clamp(1rem, 2vw, 1.35rem);
+      color: rgba(255,255,255,0.82);
+      font-weight: 300;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── ESSENCE ── */
+    .essence {
+      padding: 90px 24px;
+      max-width: 860px;
+      margin: auto;
+      text-align: center;
+    }
+    .essence h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem;
+      font-weight: 600;
+      color: #1a3520;
+      margin-bottom: 24px;
+    }
+    .essence p {
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: #3d5040;
+      font-weight: 300;
+    }
+
+    /* ── DESTINATIONS SECTION ── */
+    .destinations-section {
+      padding: 90px 52px;
+      background: #1a2e1c;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      text-align: center;
+      font-size: 2.5rem;
+      color: #fff;
+      margin-bottom: 56px;
+      font-weight: 600;
+    }
+    .destinations-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 36px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .dest-card {
+      background: #243626;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .dest-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 30px 70px rgba(0,0,0,0.5);
+    }
+    .dest-card img {
+      width: 100%;
+      height: 230px;
+      object-fit: cover;
+      display: block;
+    }
+    .card-content {
+      padding: 26px 26px 22px;
+    }
+    .card-index {
+      display: inline-block;
+      background: #5a9e6f;
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      padding: 4px 12px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+    }
+    .card-content h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: #e8f5ea;
+      margin-bottom: 10px;
+    }
+    .card-content p {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: #9dbda2;
+      font-weight: 300;
+    }
+    .explore-link {
+      display: inline-block;
+      margin-top: 16px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      color: #7dcf95;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(125,207,149,0.35);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .explore-link:hover { color: #a8e6ba; border-color: #a8e6ba; }
+
+    /* ── EXPERIENCES ── */
+    .experiences {
+      padding: 80px 24px;
+      background:
+        linear-gradient(rgba(20,40,22,0.78), rgba(20,40,22,0.88)),
+        url("images/ooty-tea.jpg") center/cover no-repeat;
+    }
+    .experiences h2 {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      text-align: center;
+      font-size: 2.2rem;
+      color: #fff;
+      margin-bottom: 40px;
+    }
+    .experience-grid {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 18px;
+    }
+    .exp-card {
+      padding: 22px 18px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      text-align: center;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #d6f0da;
+      backdrop-filter: blur(6px);
+      transition: background 0.25s;
+    }
+    .exp-card:hover { background: rgba(255,255,255,0.14); }
+
+    /* ── BEST TIME ── */
+    .best-time {
+      padding: 80px 24px;
+      text-align: center;
+      background: #edf5ee;
+    }
+    .best-time h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      color: #1a3520;
+      margin-bottom: 16px;
+    }
+    .best-time p {
+      font-size: 1.05rem;
+      color: #3d5040;
+      line-height: 1.8;
+      font-weight: 300;
+    }
+
+    /* ── CTA ── */
+    .cta {
+      padding: 90px 24px;
+      text-align: center;
+      background: linear-gradient(135deg, #1a3520, #2e5c36);
+      color: #fff;
+    }
+    .cta h2 {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 2.4rem;
+      margin-bottom: 28px;
+    }
+    .cta-btn {
+      display: inline-block;
+      padding: 16px 52px;
+      background: #5a9e6f;
+      color: #fff;
+      border-radius: 999px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      letter-spacing: 0.06em;
+      transition: background 0.25s, transform 0.2s;
+      box-shadow: 0 8px 30px rgba(90,158,111,0.4);
+    }
+    .cta-btn:hover { background: #4a8a5e; transform: translateY(-2px); }
+
+    @media (max-width: 700px) {
+      .destinations-section { padding: 60px 20px; }
+      .essence { padding: 60px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<a href="index.html" class="back-btn">← Back</a>
+
+<section class="hero">
+  <div class="hero-content">
+    <h1>Ooty</h1>
+    <p>The Queen of the Nilgiris</p>
+  </div>
+</section>
+
+<section class="essence">
+  <h2>The Essence of Ooty</h2>
+  <p>
+    Nestled in the Nilgiri Hills of Tamil Nadu at an altitude of 2,240 metres, Ooty is a breathtaking hill station draped in emerald tea gardens, misty valleys, and pine-scented forests. Known as the Queen of Hill Stations, it enchants visitors with its colonial heritage, toy train rides, and serene lakes surrounded by eucalyptus trees.
+
+    Life in Ooty is unhurried and restorative. Mornings arrive wrapped in cool mist, evenings glow with golden light over rolling hills, and the cool air carries the gentle fragrance of tea blossoms. Whether you're drawn by the famous Nilgiri Mountain Railway, the vast botanical gardens, or the quiet trails winding through shola forests — Ooty offers a mountain escape that lingers in memory long after you leave.
+  </p>
+</section>
+
+<section class="destinations-section">
+  <h2 class="section-title">Top Destinations in Ooty</h2>
+  <div class="destinations-grid">
+
+    <div class="dest-card">
+      <img src="images/ooty-lake.jpg" alt="Ooty Lake">
+      <div class="card-content">
+        <span class="card-index">01</span>
+        <h3>Ooty Lake</h3>
+        <p>A scenic artificial lake offering boating, horse riding, and a peaceful walk along its tree-lined banks.</p>
+        <a href="#" class="explore-link">EXPLORE</a>
+      </div>
+    </div>
+
+    <div class="dest-card">
+      <img src="images/botanical-garden.jpg" alt="Botanical Garden">
+      <div class="card-content">
+        <span class="card-index">02</span>
+        <h3>Botanical Garden</h3>
+        <p>A sprawling 55-acre garden housing over 1,000 plant species, fossil trees, and a tranquil Italian garden.</p>
+        <a href="#" class="explore-link">EXPLORE</a>
+      </div>
+    </div>
+
+    <div class="dest-card">
+      <img src="images/doddabetta.jpg" alt="Doddabetta Peak">
+      <div class="card-content">
+        <span class="card-index">03</span>
+        <h3>Doddabetta Peak</h3>
+        <p>The highest point in the Nilgiris at 2,637 metres, offering panoramic views of mist-covered valleys.</p>
+        <a href="#" class="explore-link">EXPLORE</a>
+      </div>
+    </div>
+
+    <div class="dest-card">
+      <img src="images/nilgiri-train.jpg" alt="Nilgiri Mountain Railway">
+      <div class="card-content">
+        <span class="card-index">04</span>
+        <h3>Nilgiri Mountain Railway</h3>
+        <p>A UNESCO World Heritage toy train that winds through tea estates, tunnels, and spectacular mountain scenery.</p>
+        <a href="#" class="explore-link">EXPLORE</a>
+      </div>
+    </div>
+
+    <div class="dest-card">
+      <img src="images/emerald-lake.jpg" alt="Emerald Lake">
+      <div class="card-content">
+        <span class="card-index">05</span>
+        <h3>Emerald Lake</h3>
+        <p>A serene reservoir surrounded by tea plantations, perfect for birdwatching and a quiet, scenic retreat.</p>
+        <a href="#" class="explore-link">EXPLORE</a>
+      </div>
+    </div>
+
+    <div class="dest-card">
+      <img src="images/pykara.jpg" alt="Pykara Falls">
+      <div class="card-content">
+        <span class="card-index">06</span>
+        <h3>Pykara Falls</h3>
+        <p>A stunning waterfall cascading through dense shola forests — best visited after the monsoon season.</p>
+        <a href="#" class="explore-link">EXPLORE</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="experiences">
+  <h2>Unmissable Experiences</h2>
+  <div class="experience-grid">
+    <div class="exp-card">🚂 Toy Train Ride</div>
+    <div class="exp-card">🍵 Tea Garden Walk</div>
+    <div class="exp-card">🌿 Botanical Garden Tour</div>
+    <div class="exp-card">🏔️ Doddabetta Trek</div>
+    <div class="exp-card">🚣 Ooty Lake Boating</div>
+    <div class="exp-card">🌅 Misty Sunrise Views</div>
+  </div>
+</section>
+
+<section class="best-time">
+  <h2>Best Time to Visit</h2>
+  <p>
+    <b><i>October to June</i></b><br>
+    The weather is cool and pleasant, ideal for sightseeing, trekking, and enjoying the lush Nilgiri landscapes.
+  </p>
+</section>
+
+<section class="cta">
+  <h2>Ready to explore Ooty?</h2>
+  <a href="index.html" class="cta-btn">Plan Your Trip</a>
+</section>
+
+</body>
+</html>

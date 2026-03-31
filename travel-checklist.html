@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Travel Checklist — TripNest</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #0d1b2e;
+      --blue-cta: #3b7df5;
+      --blue-cta-hover: #2563eb;
+      --white: #ffffff;
+      --label-color: #6b7280;
+      --divider: #e5e7eb;
+      --text-dark: #111827;
+      --text-mid: #374151;
+      --bg-input: #f9fafb;
+      --card-shadow: 0 20px 80px rgba(0,0,0,0.32);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      background-color: var(--navy);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── Dark city background ── */
+    .hero-bg {
+      position: fixed;
+      inset: 0;
+      background:
+        linear-gradient(180deg,
+          rgba(8,18,34,0.74) 0%,
+          rgba(10,22,42,0.84) 60%,
+          rgba(8,16,30,0.93) 100%),
+        url('images/bg-travel.jpg') center/cover no-repeat;
+      z-index: 0;
+    }
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 60% 0%, rgba(30,60,120,0.32) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* ── Navbar ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 52px;
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.55rem;
+      font-weight: 700;
+      color: var(--white);
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.92rem;
+      color: var(--white);
+      text-decoration: none;
+      opacity: 0.85;
+      transition: opacity 0.2s;
+    }
+    .nav-links a:hover { opacity: 1; }
+    .nav-links a.active { opacity: 1; }
+    .nav-dots { font-size: 1.2rem; color: var(--white); letter-spacing: 2px; }
+
+    /* ── Page layout ── */
+    .page {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      padding: 130px 40px 60px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* ── Hero heading ── */
+    .hero-text {
+      text-align: center;
+      margin-bottom: 40px;
+      animation: fadeUp 0.65s cubic-bezier(0.22,1,0.36,1) both;
+    }
+    .hero-text h1 {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-weight: 700;
+      font-size: clamp(2.4rem, 5vw, 3.6rem);
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 12px;
+    }
+    .hero-text h1 span { color: #60a5fa; }
+    .hero-text p {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.6);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Main card ── */
+    .checklist-card {
+      width: 100%;
+      max-width: 780px;
+      background: rgba(255,255,255,0.97);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+      animation: fadeUp 0.75s 0.1s cubic-bezier(0.22,1,0.36,1) both;
+    }
+
+    /* ── Top search/selector bar — mirrors homepage search bar ── */
+    .selector-bar {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      border-bottom: 1px solid var(--divider);
+    }
+
+    .select-group {
+      padding: 20px 28px;
+      border-right: 1px solid var(--divider);
+    }
+    .select-group label {
+      display: block;
+      font-size: 0.66rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--label-color);
+      margin-bottom: 6px;
+    }
+    .select-group select {
+      width: 100%;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      font-weight: 400;
+      color: #1a1a2e;
+      background: transparent;
+      border: none;
+      appearance: none;
+      cursor: pointer;
+      outline: none;
+    }
+
+    .btn-suggestions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 0 32px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #fff;
+      background: var(--blue-cta);
+      border: none;
+      cursor: pointer;
+      letter-spacing: 0.04em;
+      transition: background 0.25s;
+      white-space: nowrap;
+    }
+    .btn-suggestions:hover { background: var(--blue-cta-hover); }
+
+    /* ── Add item row ── */
+    .add-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      border-bottom: 1px solid var(--divider);
+    }
+    .add-row input {
+      padding: 16px 28px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 300;
+      color: var(--text-dark);
+      background: transparent;
+      border: none;
+      outline: none;
+    }
+    .add-row input::placeholder { color: #9ca3af; }
+    .btn-add {
+      padding: 0 28px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #fff;
+      background: var(--blue-cta);
+      border: none;
+      border-left: 1px solid var(--divider);
+      cursor: pointer;
+      letter-spacing: 0.04em;
+      transition: background 0.25s;
+    }
+    .btn-add:hover { background: var(--blue-cta-hover); }
+
+    /* ── Checklist items ── */
+    .checklist-body {
+      padding: 8px 0;
+      min-height: 260px;
+      max-height: 380px;
+      overflow-y: auto;
+    }
+
+    .checklist-body::-webkit-scrollbar { width: 4px; }
+    .checklist-body::-webkit-scrollbar-track { background: transparent; }
+    .checklist-body::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 4px; }
+
+    .item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 13px 28px;
+      border-bottom: 1px solid var(--divider);
+      transition: background 0.18s;
+    }
+    .item:last-child { border-bottom: none; }
+    .item:hover { background: #f0f6ff; }
+
+    .item-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    /* Custom checkbox */
+    .item-left input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--blue-cta);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .item-left span {
+      font-size: 0.92rem;
+      color: var(--text-dark);
+      transition: opacity 0.2s, text-decoration 0.2s;
+    }
+
+    .item.completed .item-left span {
+      text-decoration: line-through;
+      opacity: 0.4;
+    }
+
+    .delete-btn {
+      background: transparent;
+      border: none;
+      color: #ef4444;
+      font-size: 15px;
+      cursor: pointer;
+      padding: 4px 6px;
+      border-radius: 6px;
+      transition: background 0.18s;
+      opacity: 0.6;
+    }
+    .delete-btn:hover { background: #fee2e2; opacity: 1; }
+
+    /* ── Empty state ── */
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: #9ca3af;
+      font-size: 0.88rem;
+    }
+    .empty-state .icon { font-size: 2.2rem; margin-bottom: 10px; }
+
+    /* ── Progress footer ── */
+    .progress-footer {
+      border-top: 1px solid var(--divider);
+      padding: 18px 28px 22px;
+      background: #f9fafb;
+    }
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .progress-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--label-color);
+    }
+    .progress-pct {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--blue-cta);
+    }
+    .progress-bar {
+      height: 6px;
+      background: #e5e7eb;
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--blue-cta), #60a5fa);
+      border-radius: 99px;
+      transition: width 0.5s cubic-bezier(0.22,1,0.36,1);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 700px) {
+      nav { padding: 18px 20px; }
+      .nav-links { display: none; }
+      .page { padding: 100px 16px 50px; }
+      .selector-bar { grid-template-columns: 1fr; }
+      .select-group { border-right: none; border-bottom: 1px solid var(--divider); }
+      .btn-suggestions { padding: 16px 28px; justify-content: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="hero-bg"></div>
+
+<!-- Navbar -->
+<nav>
+  <a href="index.html" class="nav-logo">TripNest</a>
+  <ul class="nav-links">
+    <li><a href="compare.html">Compare</a></li>
+    <li><a href="#" class="active">Travel Checklist</a></li>
+    <li><a href="trip-planner.html">Trip Planner</a></li>
+    <li><span class="nav-dots">···</span></li>
+  </ul>
+</nav>
+
+<div class="page">
+
+  <!-- Hero heading -->
+  <div class="hero-text">
+    <h1>Travel <span>Checklist</span></h1>
+    <p>Must-See Attractions. Unbeatable Prices. Exclusively for You!</p>
+  </div>
+
+  <!-- Main card -->
+  <div class="checklist-card">
+
+    <!-- Selector + Suggestions (mirrors homepage search bar) -->
+    <div class="selector-bar">
+      <div class="select-group">
+        <label>Trip Type</label>
+        <select id="tripType">
+          <option value="">Select a destination type…</option>
+          <option value="beach">🏝️ Beach</option>
+          <option value="mountain">🏔️ Mountain</option>
+          <option value="city">🏙️ City</option>
+          <option value="adventure">🧗 Adventure</option>
+        </select>
+      </div>
+      <button class="btn-suggestions" onclick="addSuggestions()">✨ Suggestions</button>
+    </div>
+
+    <!-- Add item row -->
+    <div class="add-row">
+      <input type="text" id="taskInput" placeholder="Add item  —  Passport, Charger, Sunscreen…">
+      <button class="btn-add" onclick="addTask()">Add</button>
+    </div>
+
+    <!-- Checklist -->
+    <div class="checklist-body" id="checklist"></div>
+
+    <!-- Progress bar -->
+    <div class="progress-footer">
+      <div class="progress-meta">
+        <span class="progress-label">Packing Progress</span>
+        <span class="progress-pct" id="progressText">0%</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  let tasks = JSON.parse(localStorage.getItem('tasks')) || [
+    { text: 'Passport', done: false },
+    { text: 'Tickets', done: false }
+  ];
+
+  const suggestions = {
+    beach:     ['Sunscreen', 'Sunglasses', 'Flip flops', 'Swimwear', 'Water bottle'],
+    mountain:  ['Jacket', 'Warm clothes', 'Trekking shoes', 'Gloves', 'Thermal wear'],
+    city:      ['Comfortable shoes', 'Power bank', 'ID proof', 'Backpack'],
+    adventure: ['First aid kit', 'Energy bars', 'Flashlight', 'Extra clothes']
+  };
+
+  function render() {
+    const list = document.getElementById('checklist');
+
+    if (tasks.length === 0) {
+      list.innerHTML = `<div class="empty-state"><div class="icon">🧳</div>Your checklist is empty — add items or use Suggestions</div>`;
+      updateProgress();
+      return;
+    }
+
+    list.innerHTML = '';
+    tasks.forEach((task, i) => {
+      const div = document.createElement('div');
+      div.className = 'item' + (task.done ? ' completed' : '');
+      div.innerHTML = `
+        <div class="item-left">
+          <input type="checkbox" ${task.done ? 'checked' : ''} onclick="toggle(${i})">
+          <span>${task.text}</span>
+        </div>
+        <button class="delete-btn" onclick="removeTask(${i})" title="Remove">✖</button>
+      `;
+      list.appendChild(div);
+    });
+
+    updateProgress();
+  }
+
+  function addTask() {
+    const input = document.getElementById('taskInput');
+    const val = input.value.trim();
+    if (!val) return;
+    tasks.push({ text: val, done: false });
+    input.value = '';
+    save();
+  }
+
+  document.getElementById('taskInput').addEventListener('keydown', e => {
+    if (e.key === 'Enter') addTask();
+  });
+
+  function addSuggestions() {
+    const type = document.getElementById('tripType').value;
+    if (!type) return alert('Select a trip type first!');
+    suggestions[type].forEach(item => {
+      if (!tasks.find(t => t.text === item)) tasks.push({ text: item, done: false });
+    });
+    save();
+  }
+
+  function toggle(i) { tasks[i].done = !tasks[i].done; save(); }
+  function removeTask(i) { tasks.splice(i, 1); save(); }
+
+  function updateProgress() {
+    const done = tasks.filter(t => t.done).length;
+    const total = tasks.length;
+    const pct = total ? Math.round((done / total) * 100) : 0;
+    document.getElementById('progressText').textContent = pct + '%';
+    document.getElementById('progressFill').style.width = pct + '%';
+  }
+
+  function save() { localStorage.setItem('tasks', JSON.stringify(tasks)); render(); }
+
+  render();
+</script>
+</body>
+</html>

@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Goa | TripNest</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f4fbfa;
+      color: #222;
+    }
+
+    /* ── BACK BUTTON ── */
+    .back-btn {
+      position: fixed;
+      top: 22px; left: 28px;
+      z-index: 999;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: #fff;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 20px;
+      background: rgba(0,0,0,0.45);
+      border-radius: 999px;
+      backdrop-filter: blur(8px);
+      transition: background 0.25s, transform 0.2s;
+    }
+    .back-btn:hover { background: rgba(0,0,0,0.65); transform: translateX(-3px); }
+
+    /* ── HERO ── */
+    .hero {
+      height: 88vh;
+      background:
+        linear-gradient(rgba(0,0,0,0.25), rgba(0,50,50,0.60)),
+        url("images/goa-hero.jpg") center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .hero-content h1 {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      color: #fff;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .hero-content p {
+      font-size: clamp(1rem, 2vw, 1.35rem);
+      color: rgba(255,255,255,0.82);
+      font-weight: 300;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── ESSENCE ── */
+    .essence {
+      padding: 90px 24px;
+      max-width: 860px;
+      margin: auto;
+      text-align: center;
+    }
+    .essence h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem;
+      color: #0a4040;
+      margin-bottom: 24px;
+    }
+    .essence p {
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: #1a5050;
+      font-weight: 300;
+    }
+
+    /* ── DESTINATIONS SECTION ── */
+    .destinations-section {
+      padding: 90px 52px;
+      background: #062220;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      text-align: center;
+      font-size: 2.5rem;
+      color: #a8f0e8;
+      margin-bottom: 56px;
+    }
+    .destinations-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 36px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .dest-card {
+      background: #0d3330;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .dest-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 30px 70px rgba(0,0,0,0.5);
+    }
+    .dest-card img {
+      width: 100%;
+      height: 230px;
+      object-fit: cover;
+      display: block;
+    }
+    .card-content {
+      padding: 26px 26px 22px;
+    }
+    .card-index {
+      display: inline-block;
+      background: #1aab96;
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      padding: 4px 12px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+    }
+    .card-content h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: #c8f0ec;
+      margin-bottom: 10px;
+    }
+    .card-content p {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: #7cbcb4;
+      font-weight: 300;
+    }
+    .explore-link {
+      display: inline-block;
+      margin-top: 16px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      color: #2addc8;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(42,221,200,0.35);
+      padding-bottom: 2px;
+      transition: color 0.2s;
+    }
+    .explore-link:hover { color: #6eede0; border-color: #6eede0; }
+
+    /* ── EXPERIENCES ── */
+    .experiences {
+      padding: 80px 24px;
+      background:
+        linear-gradient(rgba(4,28,28,0.82), rgba(4,28,28,0.90)),
+        url("images/goa-beach.jpg") center/cover no-repeat;
+    }
+    .experiences h2 {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      text-align: center;
+      font-size: 2.2rem;
+      color: #a8f0e8;
+      margin-bottom: 40px;
+    }
+    .experience-grid {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 18px;
+    }
+    .exp-card {
+      padding: 22px 18px;
+      border-radius: 14px;
+      background: rgba(42,221,200,0.07);
+      border: 1px solid rgba(42,221,200,0.16);
+      text-align: center;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #c8f0ec;
+      backdrop-filter: blur(6px);
+      transition: background 0.25s;
+    }
+    .exp-card:hover { background: rgba(42,221,200,0.14); }
+
+    /* ── BEST TIME ── */
+    .best-time {
+      padding: 80px 24px;
+      text-align: center;
+      background: #e6faf8;
+    }
+    .best-time h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      color: #0a4040;
+      margin-bottom: 16px;
+    }
+    .best-time p {
+      font-size: 1.05rem;
+      color: #1a5050;
+      line-height: 1.8;
+      font-weight: 300;
+    }
+
+    /* ── CTA ── */
+    .cta {
+      padding: 90px 24px;
+      text-align: center;
+      background: linear-gradient(135deg, #062220, #0f4a44);
+      color: #fff;
+    }
+    .cta h2 {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 2.4rem;
+      margin-bottom: 28px;
+    }
+    .cta-btn {
+      display: inline-block;
+      padding: 16px 52px;
+      background: #1aab96;
+      color: #fff;
+      border-radius: 999px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      letter-spacing: 0.06em;
+      transition: background 0.25s, transform 0.2s;
+      box-shadow: 0 8px 30px rgba(26,171,150,0.45);
+    }
+    .cta-btn:hover { background: #22c9b0; transform: translateY(-2px); }
+
+    @media (max-width: 700px) {
+      .destinations-section { padding: 60px 20px; }
+      .essence { padding: 60px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<a href="index.html" class="back-btn">← Back</a>
+
+<section class="hero">
+  <div class="hero-content">
+    <h1>Goa</h1>
+    <p>Sun, sea, and a spirit like nowhere else</p>
+  </div>
+</section>
+
+<section class="essence">
+  <h2>The Essence of Goa</h2>
+  <p>
+    Goa is India's smallest state but carries a personality far larger than its geography. Stretched along the Konkan coastline, it is a sun-drenched tapestry of golden beaches, Portuguese churches, spice plantations, vibrant night markets, and some of the country's most celebrated cuisine.
+
+    What makes Goa truly special is the ease of it all — the way mornings drift into lazy beach afternoons, how evenings fill with colour and music along the shore, and how every corner reveals a blend of Indian warmth and colonial European character. Whether you seek the lively energy of North Goa or the peaceful seclusion of the south, Goa always delivers.
+  </p>
+</section>
+
+<section class="destinations-section">
+  <h2 class="section-title">Top Destinations in Goa</h2>
+  <div class="destinations-grid">
+
+    <div class="dest-card">
+      <img src="images/baga-beach.jpg" alt="Baga Beach">
+      <div class="card-content">
+        <span class="card-index">01</span>
+        <h3>Baga Beach</h3>
+        <p>North Goa's most iconic stretch — buzzing with water sports, shack restaurants, nightlife, and a contagious holiday energy.</p>
+        <a href="#" class="explore-link">EXPLORE</a>
+      </div>
+    </div>
+
+    <div class="dest-card">
+      <img src="images/palolem.jpg" alt="Palolem Beach">
+      <div class="card-content">
+        <span class="card-index">02</span>
+        <h3>Palolem Beach</h3>
+        <p>A crescent-shaped paradise in South Goa, serene and scenic, lined with wooden cabins, calm waters, and swaying palms.</p>
+        <a href="#" class="explore-link">EXPLORE</a>
+      </div>
+    </div>
+
+    <div class="dest-card">
+      <img src="images/basilica-bom-jesus.jpg" alt="Basilica of Bom Jesus">
+      <div class="card-content">
+        <span class="card-index">03</span>
+        <h3>Basilica of Bom Jesus</h3>
+        <p>A UNESCO World Heritage church housing the mortal remains of St Francis Xavier — a masterpiece of baroque architecture.</p>
+        <a href="#" class="explore-link">EXPLORE</a>
+      </div>
+    </div>
+
+    <div class="dest-card">
+      <img src="images/anjuna.jpg" alt="Anjuna Beach">
+      <div class="card-content">
+        <span class="card-index">04</span>
+        <h3>Anjuna Beach</h3>
+        <p>The bohemian soul of North Goa — famous for its Wednesday flea market, cliffside bars, and laid-back traveller culture.</p>
+        <a href="#" class="explore-link">EXPLORE</a>
+      </div>
+    </div>
+
+    <div class="dest-card">
+      <img src="images/dudhsagar.jpg" alt="Dudhsagar Falls">
+      <div class="card-content">
+        <span class="card-index">05</span>
+        <h3>Dudhsagar Falls</h3>
+        <p>One of India's tallest waterfalls, cascading like a sea of milk through lush Western Ghats jungle — a breathtaking sight.</p>
+        <a href="#" class="explore-link">EXPLORE</a>
+      </div>
+    </div>
+
+    <div class="dest-card">
+      <img src="images/fort-aguada.jpg" alt="Fort Aguada">
+      <div class="card-content">
+        <span class="card-index">06</span>
+        <h3>Fort Aguada</h3>
+        <p>A 17th-century Portuguese fort perched where the Mandovi River meets the Arabian Sea, offering dramatic coastal views.</p>
+        <a href="#" class="explore-link">EXPLORE</a>
+      </div>
+    </div>
+
+    <div class="dest-card">
+      <img src="images/vagator.jpg" alt="Vagator Beach">
+      <div class="card-content">
+        <span class="card-index">07</span>
+        <h3>Vagator Beach</h3>
+        <p>Rocky cliffs, red laterite headlands, and intimate coves make Vagator one of Goa's most dramatic and photogenic beaches.</p>
+        <a href="#" class="explore-link">EXPLORE</a>
+      </div>
+    </div>
+
+    <div class="dest-card">
+      <img src="images/spice-plantation.jpg" alt="Spice Plantation">
+      <div class="card-content">
+        <span class="card-index">08</span>
+        <h3>Spice Plantations</h3>
+        <p>Fragrant estates in the Goan hinterland offering guided tours through cardamom, pepper, and cinnamon groves.</p>
+        <a href="#" class="explore-link">EXPLORE</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="experiences">
+  <h2>Unmissable Experiences</h2>
+  <div class="experience-grid">
+    <div class="exp-card">🏄 Water Sports</div>
+    <div class="exp-card">🌅 Sunset Shack Dinner</div>
+    <div class="exp-card">🛵 Bike the Coastline</div>
+    <div class="exp-card">🎶 Nightlife & Clubs</div>
+    <div class="exp-card">🦅 Parasailing</div>
+    <div class="exp-card">🍤 Goan Seafood Feast</div>
+  </div>
+</section>
+
+<section class="best-time">
+  <h2>Best Time to Visit</h2>
+  <p>
+    <b><i>November to February</i></b><br>
+    The winter months bring cool breezes, clear skies, and perfect beach conditions — Goa's absolute peak season.
+  </p>
+</section>
+
+<section class="cta">
+  <h2>Ready to explore Goa?</h2>
+  <a href="index.html" class="cta-btn">Plan Your Trip</a>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jaipur | TripNest</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #fdf6ee;
+      color: #222;
+    }
+
+    /* ── BACK BUTTON ── */
+    .back-btn {
+      position: fixed;
+      top: 22px; left: 28px;
+      z-index: 999;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: #fff;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 20px;
+      background: rgba(0,0,0,0.45);
+      border-radius: 999px;
+      backdrop-filter: blur(8px);
+      transition: background 0.25s, transform 0.2s;
+    }
+    .back-btn:hover { background: rgba(0,0,0,0.65); transform: translateX(-3px); }
+
+    /* ── HERO ── */
+    .hero {
+      height: 88vh;
+      background:
+        linear-gradient(rgba(0,0,0,0.3), rgba(60,20,10,0.6)),
+        url("images/jaipur-hero.jpg") center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .hero-content h1 {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      color: #fff;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .hero-content p {
+      font-size: clamp(1rem, 2vw, 1.35rem);
+      color: rgba(255,255,255,0.82);
+      font-weight: 300;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── ESSENCE ── */
+    .essence {
+      padding: 90px 24px;
+      max-width: 860px;
+      margin: auto;
+      text-align: center;
+    }
+    .essence h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem;
+      color: #7a2c10;
+      margin-bottom: 24px;
+    }
+    .essence p {
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: #5a3520;
+      font-weight: 300;
+    }
+
+    /* ── DESTINATIONS SECTION ── */
+    .destinations-section {
+      padding: 90px 52px;
+      background: #2e1508;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      text-align: center;
+      font-size: 2.5rem;
+      color: #f5c87a;
+      margin-bottom: 56px;
+    }
+    .destinations-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 36px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .dest-card {
+      background: #3d1f0c;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .dest-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 30px 70px rgba(0,0,0,0.5);
+    }
+    .dest-card img {
+      width: 100%;
+      height: 230px;
+      object-fit: cover;
+      display: block;
+    }
+    .card-content {
+      padding: 26px 26px 22px;
+    }
+    .card-index {
+      display: inline-block;
+      background: #c9622a;
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      padding: 4px 12px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+    }
+    .card-content h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: #f5e0c0;
+      margin-bottom: 10px;
+    }
+    .card-content p {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: #c9a880;
+      font-weight: 300;
+    }
+    .explore-link {
+      display: inline-block;
+      margin-top: 16px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      color: #e8922a;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(232,146,42,0.35);
+      padding-bottom: 2px;
+      transition: color 0.2s;
+    }
+    .explore-link:hover { color: #f5b04a; border-color: #f5b04a; }
+
+    /* ── EXPERIENCES ── */
+    .experiences {
+      padding: 80px 24px;
+      background:
+        linear-gradient(rgba(40,15,5,0.80), rgba(40,15,5,0.88)),
+        url("images/jaipur-palace.jpg") center/cover no-repeat;
+    }
+    .experiences h2 {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      text-align: center;
+      font-size: 2.2rem;
+      color: #f5c87a;
+      margin-bottom: 40px;
+    }
+    .experience-grid {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 18px;
+    }
+    .exp-card {
+      padding: 22px 18px;
+      border-radius: 14px;
+      background: rgba(255,200,100,0.08);
+      border: 1px solid rgba(255,200,100,0.18);
+      text-align: center;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #f5e0c0;
+      backdrop-filter: blur(6px);
+      transition: background 0.25s;
+    }
+    .exp-card:hover { background: rgba(255,200,100,0.15); }
+
+    /* ── BEST TIME ── */
+    .best-time {
+      padding: 80px 24px;
+      text-align: center;
+      background: #fff5e6;
+    }
+    .best-time h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      color: #7a2c10;
+      margin-bottom: 16px;
+    }
+    .best-time p {
+      font-size: 1.05rem;
+      color: #5a3520;
+      line-height: 1.8;
+      font-weight: 300;
+    }
+
+    /* ── CTA ── */
+    .cta {
+      padding: 90px 24px;
+      text-align: center;
+      background: linear-gradient(135deg, #7a2c10, #c9622a);
+      color: #fff;
+    }
+    .cta h2 {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 2.4rem;
+      margin-bottom: 28px;
+    }
+    .cta-btn {
+      display: inline-block;
+      padding: 16px 52px;
+      background: #f5c87a;
+      color: #3d1200;
+      border-radius: 999px;
+      font-size: 1rem;
+      font-weight: 700;
+      text-decoration: none;
+      letter-spacing: 0.06em;
+      transition: background 0.25s, transform 0.2s;
+      box-shadow: 0 8px 30px rgba(245,200,122,0.4);
+    }
+    .cta-btn:hover { background: #ffd98a; transform: translateY(-2px); }
+
+    @media (max-width: 700px) {
+      .destinations-section { padding: 60px 20px; }
+      .essence { padding: 60px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<a href="index.html" class="back-btn">← Back</a>
+
+<section class="hero">
+  <div class="hero-content">
+    <h1>Jaipur</h1>
+    <p>The Pink City of Royal Rajasthan</p>
+  </div>
+</section>
+
+<section class="essence">
+  <h2>The Essence of Jaipur</h2>
+  <p>
+    Jaipur, the capital of Rajasthan, is a city where royal grandeur meets vibrant everyday life. Founded in 1727 by Maharaja Sawai Jai Singh II, the city was built on a grid plan and painted terracotta pink — a colour it still proudly wears. Its magnificent forts, ornate palaces, and bustling bazaars overflow with the colour, craftsmanship, and culture of Rajputana.
+
+    Every corner of Jaipur tells a story — from the intricate latticed windows of Hawa Mahal catching the morning breeze, to the mirror-studded halls of Amer Fort glittering under candlelight. The city's food, textiles, and architecture are a living heritage that continues to draw travellers from across the world.
+  </p>
+</section>
+
+<section class="destinations-section">
+  <h2 class="section-title">Top Destinations in Jaipur</h2>
+  <div class="destinations-grid">
+
+    <div class="dest-card">
+      <img src="images/amer-fort.jpg" alt="Amer Fort">
+      <div class="card-content">
+        <span class="card-index">01</span>
+        <h3>Amer Fort</h3>
+        <p>A majestic hilltop fort blending Rajput and Mughal architecture with stunning mirror halls and sweeping valley views.</p>
+        <a href="#" class="explore-link">EXPLORE</a>
+      </div>
+    </div>
+
+    <div class="dest-card">
+      <img src="images/hawa-mahal.jpg" alt="Hawa Mahal">
+      <div class="card-content">
+        <span class="card-index">02</span>
+        <h3>Hawa Mahal</h3>
+        <p>The iconic Palace of Winds — a five-storey sandstone marvel with 953 intricately carved lattice windows.</p>
+        <a href="#" class="explore-link">EXPLORE</a>
+      </div>
+    </div>
+
+    <div class="dest-card">
+      <img src="images/city-palace.jpg" alt="City Palace">
+      <div class="card-content">
+        <span class="card-index">03</span>
+        <h3>City Palace</h3>
+        <p>A grand royal complex in the heart of the old city, housing museums, courtyards, and the royal family's residence.</p>
+        <a href="#" class="explore-link">EXPLORE</a>
+      </div>
+    </div>
+
+    <div class="dest-card">
+      <img src="images/jal-mahal.jpg" alt="Jal Mahal">
+      <div class="card-content">
+        <span class="card-index">04</span>
+        <h3>Jal Mahal</h3>
+        <p>A dreamy palace rising from the centre of Man Sagar Lake — best viewed at dusk when it glows against the hills.</p>
+        <a href="#" class="explore-link">EXPLORE</a>
+      </div>
+    </div>
+
+    <div class="dest-card">
+      <img src="images/jantar-mantar.jpg" alt="Jantar Mantar">
+      <div class="card-content">
+        <span class="card-index">05</span>
+        <h3>Jantar Mantar</h3>
+        <p>A UNESCO World Heritage astronomical observatory with 19 geometric instruments built by Jai Singh II in 1734.</p>
+        <a href="#" class="explore-link">EXPLORE</a>
+      </div>
+    </div>
+
+    <div class="dest-card">
+      <img src="images/nahargarh.jpg" alt="Nahargarh Fort">
+      <div class="card-content">
+        <span class="card-index">06</span>
+        <h3>Nahargarh Fort</h3>
+        <p>Perched on the Aravalli ridge, offering a stunning panoramic view of Jaipur's skyline, especially at sunset.</p>
+        <a href="#" class="explore-link">EXPLORE</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="experiences">
+  <h2>Unmissable Experiences</h2>
+  <div class="experience-grid">
+    <div class="exp-card">🐘 Elephant Experience</div>
+    <div class="exp-card">🛍️ Bazaar Shopping</div>
+    <div class="exp-card">🍛 Rajasthani Thali</div>
+    <div class="exp-card">🌅 Sunset at Nahargarh</div>
+    <div class="exp-card">🎨 Block Printing Workshop</div>
+    <div class="exp-card">🔭 Jantar Mantar Tour</div>
+  </div>
+</section>
+
+<section class="best-time">
+  <h2>Best Time to Visit</h2>
+  <p>
+    <b><i>October to March</i></b><br>
+    Cool, dry weather perfect for exploring forts, markets, and the golden landscape of Rajasthan.
+  </p>
+</section>
+
+<section class="cta">
+  <h2>Ready to explore Jaipur?</h2>
+  <a href="index.html" class="cta-btn">Plan Your Trip</a>
+</section>
+
+</body>
+</html>

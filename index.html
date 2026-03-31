@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TripNest | Travel Smart</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+</head>
+<body>
+
+<section class="hero">
+
+  <nav class="navbar">
+    <div class="logo"><i>TripNest</i></div>
+
+    <div class="nav-links">
+      <a href="compare.html">Compare</a>
+      <a href="travel-checklist.html">Travel Checklist</a>
+      <a href="trip-planner.html">Trip Planner</a>
+
+      <div class="more-menu">
+        <span class="more-btn">⋯</span>
+        <div class="more-dropdown">
+          <a href="#">Car services</a>
+          <a href="#">Things to Do</a>
+          <a href="#">Transport Info</a>
+          <a href="#">Budget Calculator</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <h1><i>Find your next stay</i></h1>
+
+  <div class="search-wrapper">
+
+    <p class="search-tagline">
+      Must-See Attractions. Unbeatable Prices. Exclusively for You!
+    </p>
+
+    <div class="search-bar">
+
+      <div class="search-field">
+        <span class="label">SEARCH DESTINATION</span>
+        <input
+          type="text"
+          id="destinationInput"
+          placeholder="Where are you going?" />
+      </div>
+
+      <div class="divider"></div>
+
+<div class="search-field date-field">
+  <span class="label">DATE OF ACTIVITY (OPTIONAL)</span>
+
+  <input
+    type="text"
+    id="dateText"
+    placeholder="Add a date"
+    readonly
+    onclick="toggleCalendar()" />
+
+  <div class="calendar-box" id="calendarBox">
+    <div class="calendar-header">
+      <button onclick="prevMonth()">‹</button>
+      <span id="monthYear"></span>
+      <button onclick="nextMonth()">›</button>
+    </div>
+
+    <div class="calendar-days">
+      <span>Su</span><span>Mo</span><span>Tu</span>
+      <span>We</span><span>Th</span><span>Fr</span><span>Sa</span>
+    </div>
+
+    <div class="calendar-dates" id="calendarDates"></div>
+  </div>
+</div>
+    </div>
+
+
+    <button class="search-main-btn floating-btn" onclick="searchTrip()">
+      Search
+    </button>
+
+  </div>
+</section>
+
+<section class="destinations-section">
+
+  <h2 class="section-title">Top Destinations</h2>
+  <div class="destination-grid">
+
+    <a href="andaman.html" class="destination-link">
+      <div class="destination-card andaman"><span>Andaman</span></div>
+    </a>
+
+    <a href="puducherry.html" class="destination-link">
+      <div class="destination-card puducherry"><span>Puducherry</span></div>
+    </a>
+
+    <a href="goa.html" class="destination-link">
+      <div class="destination-card goa"><span>Goa</span></div>
+    </a>
+
+    <a href="manali.html" class="destination-link">
+      <div class="destination-card manali"><span>Manali</span></div>
+    </a>
+
+  </div>
+
+  <h2 class="section-title">Budget-Friendly Destinations</h2>
+  <div class="destination-grid">
+
+    <a href="ooty.html" class="destination-link">
+      <div class="destination-card ooty"><span>Ooty</span></div>
+    </a>
+
+    <a href="jaipur.html" class="destination-link">
+      <div class="destination-card jaipur"><span>Jaipur</span></div>
+    </a>
+
+    <a href="varanasi.html" class="destination-link">
+      <div class="destination-card varanasi"><span>Varanasi</span></div>
+    </a>
+
+    <a href="munnar.html" class="destination-link">
+      <div class="destination-card munnar"><span>Munnar</span></div>
+    </a>
+
+  </div>
+</section>
+
+<section class="compare-cta" id="compare-cta">
+  <div class="cta-content">
+    <h2> Want to compare destinations?</h2>
+    <p>Compare budgets, best time, activities and more before you plan your trip.</p>
+    <a href="compare.html" class="cta-btn">Compare Destinations</a>
+  </div>
+</section>
+<section class="planner-cta" id="planner-cta">
+  <div class="planner-wrapper">
+    <div class="planner-text">
+      <h2>Planning a trip?</h2>
+      <p>
+        Build your itinerary, estimate your budget, and organize your travel
+        plan — all in one place.
+      </p>
+    </div>
+
+    <div class="planner-action">
+      <a href="trip-planner.html" class="planner-btn">Plan My Trip</a>
+    </div>
+  </div>
+</section>
+
+
+
+<script src="script.js"></script>
+</body>
+</html>

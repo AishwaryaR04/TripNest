@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Compare Destinations — TripNest</title>
+  <link rel="stylesheet" href="compare.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- Fixed dark city background -->
+<div class="hero-bg"></div>
+
+<!-- Navbar — same as homepage -->
+<nav>
+  <a href="index.html" class="nav-logo">TripNest</a>
+  <ul class="nav-links">
+    <li><a href="compare.html" class="active">Compare</a></li>
+    <li><a href="travel-checklist.html">Travel Checklist</a></li>
+    <li><a href="trip-planner.html">Trip Planner</a></li>
+    <li><span class="nav-dots">···</span></li>
+  </ul>
+</nav>
+
+<!-- Page content -->
+<div class="page">
+
+  <!-- Hero heading — italic serif like homepage -->
+  <div class="hero-text">
+    <h1>Compare Destinations</h1>
+    <p>Must-See Attractions. Unbeatable Prices. Exclusively for You!</p>
+  </div>
+
+  <!-- White card — mirrors the search bar card -->
+  <div class="compare-card">
+
+    <!-- Selector bar — styled like the search input sections -->
+    <div class="selector-bar">
+      <div class="select-group">
+        <label for="place1">First Destination</label>
+        <select id="place1" onchange="compare()" class="select-box"></select>
+      </div>
+      <div class="select-group">
+        <label for="place2">Second Destination</label>
+        <select id="place2" onchange="compare()" class="select-box"></select>
+      </div>
+    </div>
+
+    <!-- Blue Search-style button -->
+    <div class="compare-btn-wrap">
+      <button class="btn-search" onclick="compare()">Compare</button>
+    </div>
+
+    <!-- Destination images -->
+    <div class="compare-images">
+      <div class="image-card">
+        <img id="img1" src="" alt="">
+        <div class="image-overlay">
+          <div class="image-title" id="title1"></div>
+          <div class="image-tag" id="tag1"></div>
+        </div>
+      </div>
+      <div class="image-card">
+        <img id="img2" src="" alt="">
+        <div class="image-overlay">
+          <div class="image-title" id="title2"></div>
+          <div class="image-tag" id="tag2"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Comparison rows -->
+    <div class="compare-table" id="comparisonBody"></div>
+
+  </div>
+</div>
+
+<script>
+const data = {
+  andaman: {
+    name: "Andaman",
+    tag: "Bay of Bengal, India",
+    image: "images/andaman.jpg",
+    budget: "₹30k – ₹60k",
+    time: "Oct – May",
+    activities: "Scuba, Snorkeling",
+    why: "Pristine beaches",
+    stay: "₹2k – ₹6k / night",
+    crowd: "Low",
+    best: "Couples"
+  },
+  goa: {
+    name: "Goa",
+    tag: "Konkan Coast, India",
+    image: "images/goa.jpg",
+    budget: "₹15k – ₹40k",
+    time: "Nov – Feb",
+    activities: "Nightlife, Water sports",
+    why: "Energetic vibe",
+    stay: "₹1.5k – ₹5k / night",
+    crowd: "Medium",
+    best: "Friends"
+  },
+  bali: {
+    name: "Bali",
+    tag: "Lesser Sunda Islands",
+    image: "images/paradise-beach.jpg",
+    budget: "₹60k+",
+    time: "Apr – Oct",
+    activities: "Beaches, Temples",
+    why: "Luxury escape",
+    stay: "₹4k – ₹10k / night",
+    crowd: "Medium",
+    best: "Honeymoon"
+  },
+  varanasi: {
+    name: "Varanasi",
+    tag: "Uttar Pradesh, India",
+    image: "images/varanasi.jpg",
+    budget: "₹10k – ₹25k",
+    time: "Oct – Mar",
+    activities: "Ganga Aarti, Temples, Boat rides",
+    why: "Spiritual experience",
+    stay: "₹800 – ₹3k / night",
+    crowd: "High",
+    best: "Solo & Pilgrims"
+  },
+  munnar: {
+    name: "Munnar",
+    tag: "Kerala, India",
+    image: "images/munnar.jpg",
+    budget: "₹15k – ₹35k",
+    time: "Sep – May",
+    activities: "Tea estates, Trekking, Wildlife",
+    why: "Misty hill escape",
+    stay: "₹1.5k – ₹5k / night",
+    crowd: "Low",
+    best: "Nature lovers"
+  },
+  puducherry: {
+    name: "Puducherry",
+    tag: "Union Territory, India",
+    image: "images/puducherry.jpg",
+    budget: "₹12k – ₹30k",
+    time: "Oct – Mar",
+    activities: "French Quarter, Beaches, Cafés",
+    why: "Colonial charm",
+    stay: "₹1k – ₹4k / night",
+    crowd: "Low",
+    best: "Couples & Solo"
+  },
+  manali: {
+    name: "Manali",
+    tag: "Himachal Pradesh, India",
+    image: "images/manali.jpg",
+    budget: "₹20k – ₹45k",
+    time: "Oct – Jun",
+    activities: "Skiing, Trekking, River rafting",
+    why: "Snow & adventure",
+    stay: "₹1.5k – ₹5k / night",
+    crowd: "Medium",
+    best: "Adventure seekers"
+  },
+  ooty: {
+    name: "Ooty",
+    tag: "Tamil Nadu, India",
+    image: "images/ooty.jpg",
+    budget: "₹10k – ₹25k",
+    time: "Apr – Jun",
+    activities: "Tea gardens, Toy train, Boating",
+    why: "Cool hill retreat",
+    stay: "₹1k – ₹3.5k / night",
+    crowd: "Medium",
+    best: "Families"
+  },
+  jaipur: {
+    name: "Jaipur",
+    tag: "Rajasthan, India",
+    image: "images/jaipur.jpg",
+    budget: "₹12k – ₹30k",
+    time: "Oct – Mar",
+    activities: "Forts, Bazaars, Camel rides",
+    why: "Royal heritage",
+    stay: "₹1k – ₹4k / night",
+    crowd: "High",
+    best: "History buffs"
+  }
+};
+
+const fields = ["budget", "time", "activities", "why", "stay", "crowd", "best"];
+const labels = {
+  budget:     "Budget",
+  time:       "Best Time",
+  activities: "Activities",
+  why:        "Why Visit",
+  stay:       "Stay / Night",
+  crowd:      "Crowd Level",
+  best:       "Best For"
+};
+
+const p1 = document.getElementById('place1');
+const p2 = document.getElementById('place2');
+
+Object.keys(data).forEach(key => {
+  p1.innerHTML += `<option value="${key}">${data[key].name}</option>`;
+  p2.innerHTML += `<option value="${key}">${data[key].name}</option>`;
+});
+
+function compare() {
+  const d1 = data[p1.value];
+  const d2 = data[p2.value];
+
+  document.getElementById('title1').textContent = d1.name;
+  document.getElementById('title2').textContent = d2.name;
+  document.getElementById('tag1').textContent   = d1.tag;
+  document.getElementById('tag2').textContent   = d2.tag;
+
+  const img1 = document.getElementById('img1');
+  const img2 = document.getElementById('img2');
+  img1.src = d1.image; img1.alt = d1.name;
+  img2.src = d2.image; img2.alt = d2.name;
+
+  const body = document.getElementById('comparisonBody');
+  body.innerHTML = '';
+  fields.forEach(field => {
+    body.innerHTML += `
+      <div class="compare-cell label">${labels[field]}</div>
+      <div class="compare-cell value">${d1[field]}</div>
+      <div class="compare-cell value">${d2[field]}</div>
+    `;
+  });
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  p1.value = 'andaman';
+  p2.value = 'goa';
+  compare();
+});
+</script>
+
+</body>
+</html>

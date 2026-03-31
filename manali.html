@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manali | TripNest</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #edf3f8;
+      color: #222;
+    }
+
+    /* ── BACK BUTTON ── */
+    .back-btn {
+      position: fixed;
+      top: 22px; left: 28px;
+      z-index: 999;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: #fff;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 20px;
+      background: rgba(0,0,0,0.45);
+      border-radius: 999px;
+      backdrop-filter: blur(8px);
+      transition: background 0.25s, transform 0.2s;
+    }
+    .back-btn:hover { background: rgba(0,0,0,0.65); transform: translateX(-3px); }
+
+    /* ── HERO ── */
+    .hero {
+      height: 88vh;
+      background:
+        linear-gradient(rgba(0,0,0,0.3), rgba(5,20,45,0.65)),
+        url("images/manali-hero.jpg") center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .hero-content h1 {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      color: #fff;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .hero-content p {
+      font-size: clamp(1rem, 2vw, 1.35rem);
+      color: rgba(255,255,255,0.82);
+      font-weight: 300;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── ESSENCE ── */
+    .essence {
+      padding: 90px 24px;
+      max-width: 860px;
+      margin: auto;
+      text-align: center;
+    }
+    .essence h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem;
+      color: #0d2b4a;
+      margin-bottom: 24px;
+    }
+    .essence p {
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: #2c4a62;
+      font-weight: 300;
+    }
+
+    /* ── DESTINATIONS SECTION ── */
+    .destinations-section {
+      padding: 90px 52px;
+      background: #071828;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      text-align: center;
+      font-size: 2.5rem;
+      color: #cce6ff;
+      margin-bottom: 56px;
+    }
+    .destinations-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 36px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .dest-card {
+      background: #0d2235;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .dest-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 30px 70px rgba(0,0,0,0.5);
+    }
+    .dest-card img {
+      width: 100%;
+      height: 230px;
+      object-fit: cover;
+      display: block;
+    }
+    .card-content {
+      padding: 26px 26px 22px;
+    }
+    .card-index {
+      display: inline-block;
+      background: #2e7abf;
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      padding: 4px 12px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+    }
+    .card-content h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: #deeeff;
+      margin-bottom: 10px;
+    }
+    .card-content p {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: #8ab4cf;
+      font-weight: 300;
+    }
+    .explore-link {
+      display: inline-block;
+      margin-top: 16px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      color: #5bb8ff;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(91,184,255,0.35);
+      padding-bottom: 2px;
+      transition: color 0.2s;
+    }
+    .explore-link:hover { color: #90d0ff; border-color: #90d0ff; }
+
+    /* ── EXPERIENCES ── */
+    .experiences {
+      padding: 80px 24px;
+      background:
+        linear-gradient(rgba(5,18,40,0.82), rgba(5,18,40,0.90)),
+        url("images/manali-snow.jpg") center/cover no-repeat;
+    }
+    .experiences h2 {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      text-align: center;
+      font-size: 2.2rem;
+      color: #cce6ff;
+      margin-bottom: 40px;
+    }
+    .experience-grid {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 18px;
+    }
+    .exp-card {
+      padding: 22px 18px;
+      border-radius: 14px;
+      background: rgba(100,180,255,0.07);
+      border: 1px solid rgba(100,180,255,0.16);
+      text-align: center;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #c8e6ff;
+      backdrop-filter: blur(6px);
+      transition: background 0.25s;
+    }
+    .exp-card:hover { background: rgba(100,180,255,0.14); }
+
+    /* ── BEST TIME ── */
+    .best-time {
+      padding: 80px 24px;
+      text-align: center;
+      background: #e8f2fa;
+    }
+    .best-time h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      color: #0d2b4a;
+      margin-bottom: 16px;
+    }
+    .best-time p {
+      font-size: 1.05rem;
+      color: #2c4a62;
+      line-height: 1.8;
+      font-weight: 300;
+    }
+
+    /* ── CTA ── */
+    .cta {
+      padding: 90px 24px;
+      text-align: center;
+      background: linear-gradient(135deg, #071828, #0d3560);
+      color: #fff;
+    }
+    .cta h2 {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 2.4rem;
+      margin-bottom: 28px;
+    }
+    .cta-btn {
+      display: inline-block;
+      padding: 16px 52px;
+      background: #2e7abf;
+      color: #fff;
+      border-radius: 999px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      letter-spacing: 0.06em;
+      transition: background 0.25s, transform 0.2s;
+      box-shadow: 0 8px 30px rgba(46,122,191,0.45);
+    }
+    .cta-btn:hover { background: #3b90d8; transform: translateY(-2px); }
+
+    @media (max-width: 700px) {
+      .destinations-section { padding: 60px 20px; }
+      .essence { padding: 60px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<a href="index.html" class="back-btn">← Back</a>
+
+<section class="hero">
+  <div class="hero-content">
+    <h1>Manali</h1>
+    <p>Where the Himalayas touch the sky</p>
+  </div>
+</section>
+
+<section class="essence">
+  <h2>The Essence of Manali</h2>
+  <p>
+    Manali sits at 2,050 metres in the Beas River valley of Himachal Pradesh, cradled by towering snow-capped peaks and ancient cedar forests. It is both a high-altitude adventure hub and a serene Himalayan sanctuary — a place where the air is crisp, the rivers roar over glacial boulders, and the horizon is always framed by white mountains.
+
+    From the adrenaline of skiing on Solang Nala and crossing the legendary Rohtang Pass, to the spiritual stillness of the Hadimba Temple deep in a deodar forest — Manali holds something extraordinary for every kind of traveller. Evenings here arrive early and bring a silence that only the mountains can offer.
+  </p>
+</section>
+
+<section class="destinations-section">
+  <h2 class="section-title">Top Destinations in Manali</h2>
+  <div class="destinations-grid">
+
+    <div class="dest-card">
+      <img src="images/rohtang-pass.jpg" alt="Rohtang Pass">
+      <div class="card-content">
+        <span class="card-index">01</span>
+        <h3>Rohtang Pass</h3>
+        <p>A dramatic high-altitude mountain pass at 3,978 m offering snow activities, panoramic peaks, and raw Himalayan scenery.</p>
+        <a href="#" class="explore-link">EXPLORE</a>
+      </div>
+    </div>
+
+    <div class="dest-card">
+      <img src="images/solang-nala.jpg" alt="Solang Nala">
+      <div class="card-content">
+        <span class="card-index">02</span>
+        <h3>Solang Valley</h3>
+        <p>The adventure capital of Manali — skiing, snowboarding, zorbing, and paragliding set against a breathtaking alpine backdrop.</p>
+        <a href="#" class="explore-link">EXPLORE</a>
+      </div>
+    </div>
+
+    <div class="dest-card">
+      <img src="images/hadimba-temple.jpg" alt="Hadimba Temple">
+      <div class="card-content">
+        <span class="card-index">03</span>
+        <h3>Hadimba Temple</h3>
+        <p>A 16th-century pagoda-style temple nestled within a dense deodar cedar forest, dedicated to the goddess Hadimba Devi.</p>
+        <a href="#" class="explore-link">EXPLORE</a>
+      </div>
+    </div>
+
+    <div class="dest-card">
+      <img src="images/old-manali.jpg" alt="Old Manali">
+      <div class="card-content">
+        <span class="card-index">04</span>
+        <h3>Old Manali</h3>
+        <p>A charming village of cafés, guesthouses, and apple orchards — the bohemian heart of Manali with a relaxed mountain vibe.</p>
+        <a href="#" class="explore-link">EXPLORE</a>
+      </div>
+    </div>
+
+    <div class="dest-card">
+      <img src="images/beas-river.jpg" alt="Beas River">
+      <div class="card-content">
+        <span class="card-index">05</span>
+        <h3>Beas River</h3>
+        <p>A glacial river ideal for white-water rafting, fly-fishing, and riverside walks with the Himalayas as your backdrop.</p>
+        <a href="#" class="explore-link">EXPLORE</a>
+      </div>
+    </div>
+
+    <div class="dest-card">
+      <img src="images/naggar-castle.jpg" alt="Naggar Castle">
+      <div class="card-content">
+        <span class="card-index">06</span>
+        <h3>Naggar Castle</h3>
+        <p>A centuries-old stone-and-wood castle overlooking the Kullu Valley, now a heritage hotel and art museum.</p>
+        <a href="#" class="explore-link">EXPLORE</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="experiences">
+  <h2>Unmissable Experiences</h2>
+  <div class="experience-grid">
+    <div class="exp-card">⛷️ Skiing & Snowboarding</div>
+    <div class="exp-card">🏕️ Camping Under Stars</div>
+    <div class="exp-card">🚵 Mountain Biking</div>
+    <div class="exp-card">🪂 Paragliding</div>
+    <div class="exp-card">🛶 River Rafting</div>
+    <div class="exp-card">🌨️ Rohtang Snow Walk</div>
+  </div>
+</section>
+
+<section class="best-time">
+  <h2>Best Time to Visit</h2>
+  <p>
+    <b><i>October to June</i></b><br>
+    For snow and adventure, visit December to February. For trekking and sightseeing, March to June offers clear skies and blooming valleys.
+  </p>
+</section>
+
+<section class="cta">
+  <h2>Ready to explore Manali?</h2>
+  <a href="index.html" class="cta-btn">Plan Your Trip</a>
+</section>
+
+</body>
+</html>

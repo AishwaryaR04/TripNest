@@ -1,0 +1,296 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f5f7fa;
+  color: #222;
+}
+/* BACK BUTTON */
+.back-btn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 999;
+  padding: 10px 18px;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 999px;
+  backdrop-filter: blur(6px);
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.back-btn:hover {
+  background: rgba(0, 0, 0, 0.8);
+  transform: translateX(-3px);
+}
+
+
+/* HERO */
+.andaman-hero {
+  height: 80vh;
+  background:
+    linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.5)),
+    url("images/andaman-hero.jpg");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-content {
+  text-align: center;
+  color: white;
+}
+
+.hero-content h1 {
+  font-size: 56px;
+  margin-bottom: 10px;
+}
+
+.hero-content p {
+  font-size: 22px;
+}
+
+/* ESSENCE */
+.essence {
+  padding: 80px 20px;
+  max-width: 900px;
+  margin: auto;
+  text-align: center;
+}
+
+.essence h2 {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.essence p {
+  font-size: 18px;
+  line-height: 1.7;
+}
+
+/* TOP DESTINATIONS */
+.top-spots {
+  padding: 60px;
+}
+
+.top-spots h2 {
+  text-align: center;
+  font-size: 36px;
+  margin-bottom: 40px;
+}
+
+.spots-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.spot-card {
+  height: 200px;
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  color: white;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.spot-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  border-radius: inherit;
+}
+
+.spot-card span {
+  position: relative;
+  z-index: 1;
+}
+
+/* ANDAMAN DESTINATIONS */
+.havelock {
+  background-image: url("images/havelock.jpg");
+}
+
+.neil {
+  background-image: url("images/neil.jpg");
+}
+
+.portblair {
+  background-image: url("images/portblair.jpg");
+}
+
+.ross {
+  background-image: url("images/ross.jpg");
+}
+
+.baratang {
+  background-image: url("images/baratang.jpg");
+}
+
+.northbay {
+  background-image: url("images/north-bay.jpg");
+}
+
+.chidiyatapu {
+  background-image: url("images/chidiya-tapu.jpg");
+}
+
+.longisland {
+  background-image: url("images/long-island.jpg");
+}
+
+/* EXPERIENCES */
+.experiences {
+  padding: 60px 20px;
+  background: url("images/bg-swim.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.experiences h2 {
+  text-align: center;
+  font-size: 36px;
+  margin-bottom: 30px;
+}
+
+.experience-grid {
+  max-width: 900px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.exp-card {
+  padding: 25px;
+  border-radius: 16px;
+  background: #f0f6ff;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* BEST TIME */
+.best-time {
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.best-time h2 {
+  font-size: 36px;
+  margin-bottom: 15px;
+}
+
+.best-time p {
+  font-size: 18px;
+}
+
+/* CTA */
+.cta {
+  padding: 80px 20px;
+  text-align: center;
+  background-color:#0c172b;
+  color: white;
+  gap: 50px;
+}
+
+.cta h2 {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.cta-btn {
+  padding: 16px 50px;
+  background: white;
+  color: #081a38;
+  border-radius: 999px;
+  font-size: 20px;
+  font-weight: bold;
+  text-decoration: none;
+}
+/* TOP DESTINATIONS SECTION */
+.top-destinations-cards {
+  padding: 90px 60px;
+  background: #0e1b2a; /* dark premium background */
+}
+
+.section-title {
+  text-align: center;
+  font-size: 38px;
+  color: #fff;
+  margin-bottom: 50px;
+}
+
+/* GRID */
+.destinations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 40px;
+}
+
+/* CARD */
+.destination-card-dark {
+  background: #1a2636;
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.45);
+}
+
+
+
+/* IMAGE */
+.destination-card-dark img {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+}
+
+/* CONTENT */
+.destination-card-dark .card-content {
+  padding: 28px;
+  color: #fff;
+}
+
+.card-index {
+  display: inline-block;
+  background: #1fb6aa; /* accent like reference */
+  color: #000;
+  font-weight: bold;
+  padding: 5px 12px;
+  border-radius: 6px;
+  margin-bottom: 14px;
+}
+
+.destination-card-dark h3 {
+  font-size: 24px;
+  margin: 10px 0;
+}
+
+.destination-card-dark p {
+  font-size: 16px;
+  line-height: 1.7;
+  color: #cfd8e3;
+}
+
+/* EXPLORE */
+.explore-link {
+  display: inline-block;
+  margin-top: 18px;
+  color: #4aa3ff;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.explore-link:hover {
+  text-decoration: underline;
+}
